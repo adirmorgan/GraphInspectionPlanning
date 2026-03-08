@@ -40,7 +40,7 @@ This repository includes:
 
 ### 1️⃣ Multiple MILP Formulations
 
-* **Baseline MILP**
+* **Baseline MILP** - Based on charge variables formulation by Mizutani et. al. (WAFR'24).
 * **Single-Commodity Flow (SCF) formulation**
 * **Multi-Commodity Flow (MCF) formulation**
 * **Group-Cutset (Branch-and-Cut) formulation** ← most scalable
