@@ -1,4 +1,4 @@
-<img width="435" height="534" alt="image" src="https://github.com/user-attachments/assets/7a61b2d6-23ac-4f8e-bf38-9404c6a2bded" /># Scalable Inspection Planning via Flow-based MILP
+# Scalable Inspection Planning via Flow-based MILP
 
 Official implementation of the paper:
 
