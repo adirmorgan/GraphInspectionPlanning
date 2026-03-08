@@ -1,4 +1,4 @@
-# Scalable Inspection Planning via Flow-based MILP
+<img width="435" height="534" alt="image" src="https://github.com/user-attachments/assets/7a61b2d6-23ac-4f8e-bf38-9404c6a2bded" /># Scalable Inspection Planning via Flow-based MILP
 
 Official implementation of the paper:
 
@@ -8,10 +8,20 @@ Technion – Israel Institute of Technology
 <!-- (WAFR 2026) -->
 
 ---
+<div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
+
+  <div style="background-color: white; padding: 10px;">
+    <img src="figures/bridge.png" width="350">
+  </div>
 
 <div align="center" style="background-color: white; padding: 15px; border-radius: 8px;">
-   <img src="figures/IPP.png" width="600">
+   <img src="figures/IPP.png" width="350">
 </div>
+
+</div>
+
+
+
 
 ## Overview
 
