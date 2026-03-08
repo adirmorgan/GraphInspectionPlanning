@@ -14,9 +14,9 @@ Technion – Israel Institute of Technology
     <img src="figures/bridge.png" width="350">
   </div>
 
-<div align="center" style="background-color: white; padding: 15px; border-radius: 8px;">
-   <img src="figures/IPP.png" width="350">
-</div>
+  <div style="background-color: white; padding: 10px;">
+    <img src="figures/IPP.png" width="350">
+  </div>
 
 </div>
 
