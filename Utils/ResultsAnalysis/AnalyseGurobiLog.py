@@ -211,7 +211,7 @@ if __name__ == "__main__":
             plot_objective_bounds(ax_obj, aligned[lf], legend_names[i], c, senses[lf])
             apply_obj_axes(ax_obj)
 
-            # IMPORTANT: no legend on the per-scenario figures
+            # IMPORTANT: no legend on the per-scenario Figures
             fig_obj.tight_layout()
             out = os.path.join(OUTPUT_DEST, f"{Experiment}_{legend_names[i]}_ObjBounds.pdf")
             fig_obj.savefig(out, format="pdf", bbox_inches="tight")

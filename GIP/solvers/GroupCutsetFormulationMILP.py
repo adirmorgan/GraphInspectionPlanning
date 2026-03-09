@@ -1,27 +1,21 @@
 import argparse
-import matplotlib.pyplot as plt
-import networkx as nx
-import random
-import numpy as np
-import time
 
 import GraphGeneration
 import GraphDrawing
-import InspectionPostsolve
+from GIP.heuristics import InspectionPostsolve
 import Postsolve
 from HeuristicSolvers import TM_solver_groups
-from Utils import IP_to_Group, GurobiUtils
-from Readers import ExperimentPicker, IRIS_reader
+from GIP.solver_utils import IP_to_Group
+from Utils.Readers import IRIS_reader, ExperimentPicker
 import InspectionPresolve
 
 from SteinerTreeProblem import STProblem
 from gurobipy import Model, GRB, quicksum, GurobiError
-from InspectionHeuristic import TM_solver_groups_scipy, wafr24_ST_heuristic
+from GIP.heuristics.InspectionHeuristic import TM_solver_groups_scipy
 from Presolve import Presolver_DegreeTest1, Special_distance_edge_elimination, retrace_solution
 from ST_BnB_solver import edges_from_model, connectivity_cut
-from SolutionValidation import validate_solution, validate_solution_groups
-import CutsOracle
-from Readers.SimInstanceUtils import load_simulated_instance
+from GIP.solver_utils.SolutionValidation import validate_solution_groups
+from GIP.seperation import CutsOracle
 import sys
 sys.path.append("/home/adir/PycharmProjects/SteinerTreeSolver/Simulator")
 
@@ -183,8 +177,8 @@ def cut_heuristic_callback(model, where):
 
             if greedy_PH:
                 solution_edges, sol_weight, _, _ = InspectionPostsolve.ST_to_tour_christofides_scipy_greedy(model._G,
-                                                                                                     tree_solution_edges,
-                                                                                                     start=root)
+                                                                                                            tree_solution_edges,
+                                                                                                            start=root)
 
             # tree_solution_edges = wafr24_ST_heuristic(model._Glp, model._r, model._I.copy(), model._vertex_poi_vis)
             # solution_edges, _ = Postsolve.ST_to_tour(model._G,

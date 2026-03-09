@@ -1,6 +1,6 @@
 import gurobipy as gp
-from gurobipy import GRB, quicksum
-import CutsOracle
+from gurobipy import GRB
+
 
 def explain_infeasibility_of_point(m, x_by_varname, int_tol=1e-5):
     """

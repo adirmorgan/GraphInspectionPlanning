@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Make two compact 2x2 figures:
+Make two compact 2x2 Figures:
   1) Drone/Bridge family: (Drone1000, Drone2000)  -> ObjBounds + Gap
   2) Crisp family:        (Crisp1000, Crisp2000)  -> ObjBounds + Gap
 

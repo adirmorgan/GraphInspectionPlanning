@@ -4,10 +4,10 @@ from scipy.sparse.csgraph import dijkstra
 from collections import defaultdict
 import networkx as nx
 
-from Readers.ExperimentPicker import pick_exp
+from Utils.Readers.ExperimentPicker import pick_exp
 from SolutionValidation import validate_solution_groups
-from Utils import IP_to_Group
-from Readers import IRIS_reader
+from GIP.solver_utils import IP_to_Group
+from Utils.Readers import IRIS_reader
 
 import HeuristicSolvers
 import Postsolve

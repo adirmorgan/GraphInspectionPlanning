@@ -1,30 +1,19 @@
-import matplotlib.pyplot as plt
-import networkx as nx
-import random
-import numpy as np
-import time
 import argparse
 
 import GraphGeneration
 import GraphDrawing
-import InspectionPostsolve
+from GIP.heuristics import InspectionPostsolve
 import Postsolve
 from HeuristicSolvers import TM_solver_groups
-from Utils import IP_to_Group, GurobiUtils
-from Readers import ExperimentPicker, IRIS_reader
 import InspectionPresolve
-from collections import defaultdict
 
 from SteinerTreeProblem import STProblem
-from gurobipy import Model, GRB, quicksum, GurobiError
-from InspectionHeuristic import TM_solver_groups_scipy
+from gurobipy import Model, GRB, quicksum
 from Presolve import Presolver_DegreeTest1, Special_distance_edge_elimination, retrace_solution
 from ST_BnB_solver import edges_from_model, connectivity_cut
-from SolutionValidation import validate_solution, validate_solution_groups
-import CutsOracle
-from sklearn.cluster import KMeans
+from GIP.solver_utils.SolutionValidation import validate_solution_groups
 
-from Readers.SimInstanceUtils import load_simulated_instance
+from Utils.Readers.SimInstanceIO import load_simulated_instance
 import sys
 sys.path.append("/home/adir/PycharmProjects/SteinerTreeSolver/Simulator")
 

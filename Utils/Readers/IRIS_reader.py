@@ -1,7 +1,7 @@
-import matplotlib.pyplot as plt
 import networkx as nx
 import GraphDrawing
-from Utils import IP_to_Group
+from GIP.solver_utils import IP_to_Group
+
 
 def read_IRIS_to_inspection_graph(vertex_file, edge_file, conf_file):
 

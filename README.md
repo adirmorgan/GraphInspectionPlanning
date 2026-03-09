@@ -11,8 +11,8 @@ Technion – Israel Institute of Technology
 
 ---
 <p align="center">
-    <img src="figures/bridge.png" width="350">
-    <img src="figures/IPP.png" width="350">
+    <img src="assets/Figures/bridge.png" width="350">
+    <img src="assets/Figures/IPP.png" width="350">
 </p>
 
 
@@ -75,11 +75,10 @@ This repository includes:
 ```text
 .
 ├── gip/
-│   ├── formulations/          # MILP formulations (SCF, MCF, Cutset, Charge)
-│   ├── separation/            # Separation oracles
-│   ├── heuristics/            # GIP primal heuristic implementations
-│   ├── solvers/               # Branch-and-Bound / Branch-and-Cut drivers
-│   └── utils/                 # Graph utilities and helpers
+│   ├── separation/            
+│   ├── heuristics/            
+│   ├── solvers/               
+│   └── solver_utils/          
 │
 ├── benchmarks/
 │   ├── crisp/
@@ -92,7 +91,7 @@ This repository includes:
 │   ├── ablation_oracles.py
 │   └── ablation_heuristics.py
 │
-├── simulator/                 # Planar inspection planning simulator
+├── simulator/                 
 ├── requirements.txt
 └── README.md
 ```

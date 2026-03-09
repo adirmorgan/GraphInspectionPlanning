@@ -1,7 +1,5 @@
-import math
 import random
 from collections import defaultdict
-from typing import Tuple, Iterable, Optional, List
 
 import numpy as np
 import networkx as nx
@@ -9,15 +7,10 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 import HeuristicSolvers
-import InspectionPostsolve
 import Simulator.InspectionMap as InspectionMap
 import GSTDirectedFormulationMILP
 import Postsolve
-import SolutionValidation
-from Readers.SimInstanceUtils import save_simulated_instance
 from RobotDrone2D import Cspace
-from GeoHelpers import *
-from MapHelpers import *
 
 from MotionPlanning import RRT, RRG
 

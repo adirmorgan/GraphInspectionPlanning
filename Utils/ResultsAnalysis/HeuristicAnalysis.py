@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Split the original 3-panel figure into 3 separate PDF figures (recommended for papers).
+Split the original 3-panel figure into 3 separate PDF Figures (recommended for papers).
 
 Exports:
   - PanelA_TourCost.pdf

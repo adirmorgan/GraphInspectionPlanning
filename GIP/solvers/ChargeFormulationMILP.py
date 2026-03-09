@@ -1,23 +1,17 @@
-import matplotlib.pyplot as plt
 import networkx as nx
-import random
-import numpy as np
-from collections import defaultdict
 from gurobipy import Model, GRB, quicksum, GurobiError
 
 # --- Imports from your project ---
 import InspectionPresolve
-import InspectionPostsolve
+from GIP.heuristics import InspectionPostsolve
 import Postsolve
-import CutsOracle
-from SolutionValidation import validate_solution, validate_solution_groups
-from Utils import IP_to_Group
-from Readers import ExperimentPicker, IRIS_reader
-from InspectionHeuristic import TM_solver_groups_scipy
+from GIP.solver_utils.SolutionValidation import validate_solution_groups
+from GIP.solver_utils import IP_to_Group
+from Utils.Readers import IRIS_reader, ExperimentPicker
+from GIP.heuristics.InspectionHeuristic import TM_solver_groups_scipy
 import GraphGeneration, GraphDrawing
 import argparse
 
-from Readers.SimInstanceUtils import load_simulated_instance
 import sys
 sys.path.append("/home/adir/PycharmProjects/SteinerTreeSolver/Simulator")
 

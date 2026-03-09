@@ -1,6 +1,6 @@
 from InspectionHeuristic import TM_solver_groups_scipy
-from Utils import IP_to_Group
-from Readers import IRIS_reader
+from GIP.solver_utils import IP_to_Group
+from Utils.Readers import IRIS_reader
 from SolutionValidation import validate_solution_groups
 
 import numpy as np
