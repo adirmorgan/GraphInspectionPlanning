@@ -81,8 +81,7 @@ This repository includes:
 │
 ├── benchmarks/
 │   ├── crisp/
-│   ├── bridge/
-│   └── simulated/
+│   └── bridge/
 │
 ├── Utils/
 │   ├── Readers/
