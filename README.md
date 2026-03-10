@@ -95,12 +95,12 @@ This repository includes:
 
 ---
 
-## Installation
+## :open_file_folder: Installation 
 
 ### Requirements
 
-* Python 3.9+
-* Gurobi Optimizer (tested with v10+)
+* Python 3.12+
+* Gurobi Optimizer (tested with v12+)
 * NumPy
 * NetworkX
 * Matplotlib
@@ -114,18 +114,18 @@ pip install -r requirements.txt
 Make sure Gurobi is properly licensed and accessible from Python (`gurobipy`).
 
 ---
-<!-- 
-## Running the Solver
+
+## :computer: Running the Solver
 
 ### Example: Group-Cutset (recommended)
 
 ```bash
-python experiments/real_world.py \
-    --instance crisp_1000 \
-    --formulation group_cutset \
-    --time_limit 1000
+ python RunSolver.py 
+ --solver GroupCutset 
+ --experiment Crisp1000 
+ --TimeOut 300
 ```
-
+<!--
 ### Example: Compare formulations
 
 ```bash
