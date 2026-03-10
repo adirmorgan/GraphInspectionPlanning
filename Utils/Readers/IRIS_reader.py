@@ -1,5 +1,4 @@
 import networkx as nx
-import GraphDrawing
 from GIP.solver_utils import IP_to_Group
 
 
@@ -47,6 +46,3 @@ if __name__ == '__main__':
 
     print(G)
     print(f"POIs number - {len(I)}")
-
-    # GraphDrawing.draw_weighted_with_sets(G, S)
-    # plt.show()
