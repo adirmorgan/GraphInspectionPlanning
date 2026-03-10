@@ -2,8 +2,6 @@ from collections import defaultdict
 
 import networkx as nx
 import time
-import maxflow
-import GraphGeneration
 
 import random, math
 from collections import defaultdict, deque
@@ -258,93 +256,6 @@ def generate_group_flow_cuts(G, pois_groups, r, lp=None):
         H.remove_node(supersink)
 
     return new_cuts
-
-def minimum_cut_pymaxflow(
-    G, s, t, capacity="capacity",
-    *, default_capacity=1, inf=None,
-):
-    """
-    PyMaxflow-backed s-t min cut for a directed graph.
-
-    Drop-in-ish replacement for:
-        nx.minimum_cut(G, s, t, capacity="capacity")
-
-    Returns:
-        (cut_value, (S, T)) where S is the source side (reachable from s in residual after maxflow)
-        and T is the sink side.
-
-    Notes:
-      - Directed edge (u->v) with capacity c is added as add_edge(u, v, c, 0).
-      - Forces s in S and t in T by connecting s to SOURCE and t to SINK with INF capacity.
-      - If capacities are floats, uses float graph; if all ints, uses int graph.
-    """
-    if s not in G or t not in G:
-        raise ValueError("Both s and t must be nodes in G")
-
-    # Deterministic node order helps repeatability
-    nodes = list(G.nodes())
-    node_to_idx = {n: i for i, n in enumerate(nodes)}
-
-    # Collect capacities + infer numeric type
-    total_cap = 0.0
-    all_int = True
-
-    # NetworkX DiGraph: G.edges(data=True) yields (u, v, attrdict)
-    # If MultiDiGraph, you’d need to handle keys; this wrapper assumes simple DiGraph-like.
-    edges_data = []
-    for u, v, data in G.edges(data=True):
-        c = data.get(capacity, default_capacity)
-        if c is None:
-            c = default_capacity
-        # Ensure numeric
-        c = float(c) if isinstance(c, bool) else c  # bool -> float-ish safeguard
-        if isinstance(c, float):
-            if not c.is_integer():
-                all_int = False
-        else:
-            # int-like
-            pass
-        if c < 0:
-            raise ValueError(f"Negative capacity on edge {(u, v)}: {c}")
-        total_cap += float(c)
-        edges_data.append((u, v, c))
-
-    # Choose INF if not provided
-    if inf is None:
-        # Big enough to never be in a min-cut unless unavoidable
-        inf = total_cap + 1.0
-        if not math.isfinite(inf) or inf <= 0:
-            inf = 1e18
-
-    # Build the maxflow graph (int or float)
-    if all_int and float(inf).is_integer():
-        g = maxflow.Graph[int](len(nodes), len(edges_data))
-        g.add_nodes(len(nodes))
-        INF = int(inf)
-        # Add directed edges
-        for u, v, c in edges_data:
-            g.add_edge(node_to_idx[u], node_to_idx[v], int(c), 0)
-        # Force terminals
-        g.add_tedge(node_to_idx[s], INF, 0)
-        g.add_tedge(node_to_idx[t], 0, INF)
-        cut_val = g.maxflow()
-        # Partition
-        S = {n for n in nodes if g.get_segment(node_to_idx[n]) == 0}
-        T = set(nodes) - S
-        return cut_val, (S, T)
-    else:
-        g = maxflow.Graph[float](len(nodes), len(edges_data))
-        g.add_nodes(len(nodes))
-        INF = float(inf)
-        for u, v, c in edges_data:
-            g.add_edge(node_to_idx[u], node_to_idx[v], float(c), 0.0)
-        g.add_tedge(node_to_idx[s], INF, 0.0)
-        g.add_tedge(node_to_idx[t], 0.0, INF)
-        cut_val = g.maxflow()
-        S = {n for n in nodes if g.get_segment(node_to_idx[n]) == 0}
-        T = set(nodes) - S
-        return cut_val, (S, T)
-
 
 def generate_group_flow_cuts_directed(D, pois_groups, r, lp=None, groups_subset=None,
                                       use_nested_cuts=False, use_creep_flow = False, max_groups_per_iteration=100):

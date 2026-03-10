@@ -1,45 +1,29 @@
 import argparse
-
-import GraphGeneration
-import GraphDrawing
 from GIP.heuristics import InspectionPostsolve
-import Postsolve
-from HeuristicSolvers import TM_solver_groups
 from GIP.solver_utils import IP_to_Group
 from Utils.Readers import IRIS_reader, ExperimentPicker
-import InspectionPresolve
-
-from SteinerTreeProblem import STProblem
 from gurobipy import Model, GRB, quicksum, GurobiError
 from GIP.heuristics.InspectionHeuristic import TM_solver_groups_scipy
-from Presolve import Presolver_DegreeTest1, Special_distance_edge_elimination, retrace_solution
-from ST_BnB_solver import edges_from_model, connectivity_cut
 from GIP.solver_utils.SolutionValidation import validate_solution_groups
 from GIP.seperation import CutsOracle
-import sys
-sys.path.append("/home/adir/PycharmProjects/SteinerTreeSolver/Simulator")
+import os
+# import sys
+# sys.path.append("/home/adir/PycharmProjects/SteinerTreeSolver/Simulator")
 
 heuristic_freq = 10
-
-TimeLim = 1000
+# TimeLim = 1000
 
 greedy_PH = False
 use_nested_cuts = False
 use_creep_flow = False
 max_groups_per_iteration = 250
 
-def RunSolver(G, S, I, vertex_poi_vis, r, sure_edges=None):
+def RunSolver(G, S, I, vertex_poi_vis, root, sure_edges=None, Experiment_name='', TimeLim=1000, out_path=''):
     m = Model("GroupTSP")
-
     m.setParam('TimeLimit', TimeLim)
-    #
-    # Experiment_name = Experiment.split("/")[-1].split(".")[0]
-    Experiment_name = Experiment
-    #
-    m.setParam('LogFile', f"/home/adir/Desktop/IP-results/grb_logs_final/Cutset_{Experiment_name}"
-                          f"_TL{TimeLim}"
-                          # f"_greedy-{greedy_PH}_max-{max_groups_per_iteration}"
-                          f".log")
+    if out_path != '':
+        output_path_full = os.path.join(out_path, f"Cutset_{Experiment_name}_TL-{TimeLim}.log")
+        m.setParam('LogFile', output_path_full)
 
     D = G.to_directed()
     D_edges = list(D.edges())
@@ -56,7 +40,7 @@ def RunSolver(G, S, I, vertex_poi_vis, r, sure_edges=None):
     # --- Constraints ---
 
     # Root out-flow
-    m.addConstr(quicksum(dir_edge_to_var[(r, v)] for _, v in D.out_edges(r)) >= 1, name='root_outflow')
+    m.addConstr(quicksum(dir_edge_to_var[(root, v)] for _, v in D.out_edges(root)) >= 1, name='root_outflow')
 
     # Groups in-flow
     for id, v_g in S.items():
@@ -71,7 +55,7 @@ def RunSolver(G, S, I, vertex_poi_vis, r, sure_edges=None):
     m.update()
 
     #___
-    m._G, m._D, m._S, m._r, m._I = G, D, S, r, I
+    m._G, m._D, m._S, m._r, m._I = G, D, S, root, I
     m._vertex_poi_vis = vertex_poi_vis
     m._x = dir_edge_to_var
     m._unc_groups = None
@@ -173,18 +157,13 @@ def cut_heuristic_callback(model, where):
             if not greedy_PH:
                 solution_edges, sol_weight, _, _ = InspectionPostsolve.ST_to_tour_christofides_scipy(model._G,
                                                                                                      tree_solution_edges,
-                                                                                                     start=root)
+                                                                                                     start=model._r)
 
             if greedy_PH:
                 solution_edges, sol_weight, _, _ = InspectionPostsolve.ST_to_tour_christofides_scipy_greedy(model._G,
                                                                                                             tree_solution_edges,
-                                                                                                            start=root)
+                                                                                                            start=model._r)
 
-            # tree_solution_edges = wafr24_ST_heuristic(model._Glp, model._r, model._I.copy(), model._vertex_poi_vis)
-            # solution_edges, _ = Postsolve.ST_to_tour(model._G,
-            #                                          tree_solution_edges,
-            #                                          start=root)
-            #
             inject_suggested_solution(model, solution_edges, where)
 
             model._heuristic_counter = 1
