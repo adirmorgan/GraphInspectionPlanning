@@ -32,6 +32,40 @@ After discretization via roadmap-based motion planning, the problem becomes **Gr
 
 GIP generalizes both **Set Cover** and **TSP**, making it NP-hard and challenging at real-world scales.
 
+___
+## :open_file_folder: Installation 
+
+### Requirements
+
+* Python 3.12+
+* Gurobi Optimizer (tested with v12+)
+* NumPy
+* NetworkX
+* Matplotlib
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Make sure Gurobi is properly licensed and accessible from Python (`gurobipy`).
+
+---
+
+## :computer: Running the Solver
+
+### Example: Group-Cutset (recommended)
+
+```bash
+ python RunSolver.py 
+ --solver GroupCutset 
+ --experiment Crisp1000 
+ --TimeOut 300
+```
+
+___
+
 ---
 
 ## Key Contributions Implemented Here
@@ -94,37 +128,6 @@ This repository includes:
 ```
 
 ---
-
-## :open_file_folder: Installation 
-
-### Requirements
-
-* Python 3.12+
-* Gurobi Optimizer (tested with v12+)
-* NumPy
-* NetworkX
-* Matplotlib
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Make sure Gurobi is properly licensed and accessible from Python (`gurobipy`).
-
----
-
-## :computer: Running the Solver
-
-### Example: Group-Cutset (recommended)
-
-```bash
- python RunSolver.py 
- --solver GroupCutset 
- --experiment Crisp1000 
- --TimeOut 300
-```
 <!--
 ### Example: Compare formulations
 
